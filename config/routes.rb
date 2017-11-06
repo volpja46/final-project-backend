@@ -7,6 +7,7 @@ Rails.application.routes.draw do
                     resources :gifts
                     resources :events
               post "/login", to: "auth#create"
+              post "/signup", to: "users#create"
             end
           end
         end

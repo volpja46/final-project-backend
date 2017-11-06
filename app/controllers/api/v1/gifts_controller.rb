@@ -11,9 +11,10 @@ class Api::V1::GiftsController < ApplicationController
     render json: @gift, status: 200
   end
 
+
   private
   def gift_params
-    params.require(:gift).permit(:name, :description, :photo, :user_id, :for_who, :occasion)
+    params.require(:gift).permit(:name, :date, :description, :photo, :user_id, :for_who, :occasion)
   end
 
 end
