@@ -6,7 +6,6 @@ def index
   render json: @users, status: 200
 end
 
-
   # GET /users
   def index
     @users = User.all
@@ -19,8 +18,13 @@ end
     render json: @user
   end
 
+  def new
+    @user = User.new(user_params)
+  end
+
   # POST /users
   def create
+
     @user = User.new(user_params)
 
     if @user.save

@@ -5,9 +5,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :create]
                     resources :gifts
-                    resources :events
+                     resources :events
               post "/login", to: "auth#create"
-              post "/signup", to: "users#create"
+              get  '/signup',  to: 'users#new'
+              post '/signup',  to: 'users#create'
             end
           end
         end
