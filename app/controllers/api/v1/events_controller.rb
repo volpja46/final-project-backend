@@ -1,5 +1,5 @@
 class Api::V1::EventsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :index]
+  skip_before_action :authorized, only: [:create, :index, :update, :destroy]
 
   def index
     @events = Event.all
@@ -12,9 +12,15 @@ class Api::V1::EventsController < ApplicationController
     render json: @event, status: 200
   end
 
+  def destroy
+    @event = Event.find(params['id']).destroy
+    render json: {deleted_event_id: params['id'].to_i}, status: 202
+  end
+
+
 private
 def event_params
-    params.require(:event).permit(:name, :date, :user_id, :type_of_celebration)
+    params.require(:event).permit(:id, :name, :date, :user_id, :type_of_celebration)
 end
 
 end
