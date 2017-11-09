@@ -8,12 +8,13 @@ class Api::V1::EventsController < ApplicationController
 
   def create
     @event = Event.create(event_params)
+    @event.user_id = current_user.id
     render json: @event, status: 200
   end
 
 private
 def event_params
-    params.require(:event).permit(:name, :date, :user_id, :type)
+    params.require(:event).permit(:name, :date, :user_id, :type_of_celebration)
 end
 
 end

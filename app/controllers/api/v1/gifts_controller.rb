@@ -1,5 +1,5 @@
 class Api::V1::GiftsController < ApplicationController
-  skip_before_action :authorized, only: [:create, :index]
+  skip_before_action :authorized, only: [:create, :index, :destroy, :update]
 
   def index
     @gifts = Gift.all
@@ -8,13 +8,27 @@ class Api::V1::GiftsController < ApplicationController
 
   def create
     @gift = Gift.create(gift_params)
+    @gift.user_id = current_user.id
     render json: @gift, status: 200
   end
 
+  def update
+    @gift = Gift.find(params[:id])
+    if @gift.update(gift_params)
+      render json: @gift
+    else
+      render json: @gift.errors, status: :unprocessable_entity
+    end
+  end
+
+def destroy
+  @gift = Gift.find(params['id']).destroy
+  render json: {deleted_gift_id: params['id'].to_i}, status: 202
+end
 
   private
   def gift_params
-    params.require(:gift).permit(:name, :date, :description, :photo, :user_id, :for_who, :occasion)
+    params.require(:gift).permit(:id, :name, :date, :description, :photo, :user_id, :for_who, :occasion)
   end
 
 end
