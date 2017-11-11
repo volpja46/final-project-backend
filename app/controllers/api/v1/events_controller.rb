@@ -17,10 +17,19 @@ class Api::V1::EventsController < ApplicationController
     render json: {deleted_event_id: params['id'].to_i}, status: 202
   end
 
+  def update
+    @event = Event.find(params[:id])
+    if @event.update(event_params)
+      render json: @event
+    else
+      render json: @event.errors, status: :unprocessable_entity
+    end
+  end
+
 
 private
 def event_params
-    params.require(:event).permit(:id, :name, :date, :user_id, :type_of_celebration)
+    params.require(:event).permit(:budget, :id, :name, :date, :user_id, :type_of_celebration)
 end
 
 end

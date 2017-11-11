@@ -6,6 +6,7 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :create]
                     resources :gifts
                      resources :events
+                     resources :presents
               post "/login", to: "auth#create"
               get  '/signup',  to: 'users#new'
               post '/signup',  to: 'users#create'
