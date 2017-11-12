@@ -5,7 +5,7 @@ class Api::V1::PresentsController < ApplicationController
   def index
     @presents = Present.all
     # @present.user_id = current_user.id
-    render json: @present, status: 200
+    render json: @presents, status: 200
   end
 
   def create
@@ -22,10 +22,10 @@ class Api::V1::PresentsController < ApplicationController
     end
   end
 
-# def destroy
-#   @present = Present.find(params['id']).destroy
-#   render json: {deleted_present_id: params['id'].to_i}, status: 202
-# end
+  def destroy
+    @present = Present.find(params['id']).destroy
+    render json: {deleted_present_id: params['id'].to_i}, status: 202
+  end
 
   private
   def present_params
