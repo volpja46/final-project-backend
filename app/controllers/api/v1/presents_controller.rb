@@ -29,7 +29,7 @@ class Api::V1::PresentsController < ApplicationController
 
   private
   def present_params
-    params.require(:present).permit(:id, :event_id, :price, :name, :store, :priority)
+    params.require(:present).permit(:id, :event_id, :price, :name, :store, :priority, :purchased)
   end
 
 end
