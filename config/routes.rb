@@ -8,8 +8,6 @@ Rails.application.routes.draw do
                      resources :events
                      resources :presents
               post "/login", to: "auth#create"
-              get  '/signup',  to: 'users#new'
-              post '/signup',  to: 'users#create'
             end
           end
         end

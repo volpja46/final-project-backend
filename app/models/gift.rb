@@ -1,4 +1,4 @@
 class Gift < ApplicationRecord
  belongs_to :user
- validates :name, presence: true
+ validates :name, :date, :occasion, presence: true
 end
