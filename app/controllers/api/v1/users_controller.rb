@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :authorized, only: [:index]
+  skip_before_action :authorized, only: [:index, :create]
 
 def index
   @users = User.all
@@ -28,7 +28,8 @@ end
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      token = encode_token({ user_id: @user.id })
+      render json: {user:@user, jwt:token}
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -56,6 +57,6 @@ end
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :password)
+      params.require(:user).permit(:username, :password)
     end
 end
